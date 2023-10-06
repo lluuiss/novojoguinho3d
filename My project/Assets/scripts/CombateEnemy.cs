@@ -34,11 +34,16 @@ public class CombateEnemy : MonoBehaviour
         float distance = Vector3.Distance(player.position, transform.position);
         if (distance <= lookRadius)
         {
-            Debug.Log("Dentro do raio de visao");{}
+            agent.SetDestination(player.position);
+            //o personagem esta no raio de visao
+            if (distance <= agent.stoppingDistance)
+            {
+                Debug.Log("bateu");
+            }
         }
         else
         {
-            Debug.Log("fora do raio de visao");
+           //o personagem esta fora do raio de visao
         }
     }
 

@@ -5501,7 +5501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413597825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 57.304, y: 0.41, z: 71.627}
+  m_LocalPosition: {x: 57.867, y: 0.41, z: 71.627}
   m_LocalScale: {x: 0.24197112, y: 0.24197112, z: 0.24197112}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5771,20 +5771,20 @@ Transform:
   - {fileID: 272296285}
   - {fileID: 1884483956}
   - {fileID: 408164487}
+  - {fileID: 31579769}
   - {fileID: 1798881158}
+  - {fileID: 848252682}
   - {fileID: 502867614}
   - {fileID: 403998444}
-  - {fileID: 224357659}
-  - {fileID: 754267072}
-  - {fileID: 643567460}
-  - {fileID: 205252681}
   - {fileID: 1171032300}
-  - {fileID: 1434184477}
-  - {fileID: 443979165}
-  - {fileID: 31579769}
-  - {fileID: 848252682}
+  - {fileID: 224357659}
+  - {fileID: 643567460}
+  - {fileID: 754267072}
+  - {fileID: 205252681}
   - {fileID: 102742616}
   - {fileID: 443559824}
+  - {fileID: 443979165}
+  - {fileID: 1434184477}
   m_Father: {fileID: 0}
   m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12910,7 +12910,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.07621864, y: 0.000000034312663, z: -0.0000000026228941, w: 0.9970911}
-  m_LocalPosition: {x: 57.266, y: 1.2759999, z: 64.848}
+  m_LocalPosition: {x: 56.662, y: 1.2759999, z: 64.848}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21661,11 +21661,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 378f4bf587d7c3d4ba3267b8336d412b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalHealth: 0
+  totalHealth: 100
   attackDamage: 0
   movementSpeed: 0
   lookRadius: 6.19
   colliderRadius: 2
+  rotationSpeed: 0
 --- !u!195 &1642811447
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -22751,7 +22752,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711826622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 57.266, y: 1.2759999, z: 64.848}
+  m_LocalPosition: {x: 56.662, y: 1.2759999, z: 64.848}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24365,6 +24366,18 @@ PrefabInstance:
     - target: {fileID: 400098, guid: c60e4208f504c9b428686973db80059f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -92.06675
+      objectReference: {fileID: 0}
+    - target: {fileID: 400100, guid: c60e4208f504c9b428686973db80059f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 400100, guid: c60e4208f504c9b428686973db80059f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 400100, guid: c60e4208f504c9b428686973db80059f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 400102, guid: c60e4208f504c9b428686973db80059f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -29011,8 +29024,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   gravity: 10
+  damage: 20
   colliderRadius: 0.34
   smoothRotTime: 0
+  totalHealth: 0
   enemyList: []
 --- !u!143 &996928305488018038
 CharacterController:
@@ -29129,7 +29144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1378728132821824035, guid: 828d4598ce1fe4e4a9e078da3f84693b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 57.266
+      value: 56.662
       objectReference: {fileID: 0}
     - target: {fileID: 1378728132821824035, guid: 828d4598ce1fe4e4a9e078da3f84693b, type: 3}
       propertyPath: m_LocalPosition.y

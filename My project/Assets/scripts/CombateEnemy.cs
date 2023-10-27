@@ -19,7 +19,7 @@ public class CombateEnemy : MonoBehaviour
     private NavMeshAgent agent;
     private bool Walking;
     private bool attacking;
-    private bool hiting
+    private bool hiting;
     private bool waitFor;
 
     [Header("Others")]

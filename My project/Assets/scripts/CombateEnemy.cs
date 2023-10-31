@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+//using Random = UnityEngine.Random;
 
 public class CombateEnemy : MonoBehaviour
 {
@@ -21,10 +22,20 @@ public class CombateEnemy : MonoBehaviour
     private bool Walking;
     private bool attacking;
     private bool hiting;
+    
     private bool waitFor;
+    
+    public bool playerIsDead;
 
     [Header("Others")]
     private Transform player;
+
+    [Header("WayPoints")]
+    public List<Transform> WayPoints = new List<Transform>();
+
+    public int currentPathIndex;
+    public float pathDistence;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -68,17 +79,35 @@ public class CombateEnemy : MonoBehaviour
             {
                 //o personagem esta fora do raio de visao
                 anim.SetBool("Walk Forward", false);
-                agent.isStopped = true;
+                //agent.isStopped = true;
                 Walking = false;
                 attacking = false;
+                MoveTowayPoint();
             }
         }
     }
-    
+
+
+    void MoveTowayPoint()
+    {
+        if (WayPoints.Count > 0)
+        {
+            float distance = Vector3.Distance(WayPoints[currentPathIndex].position, transform.position);
+            agent.destination = WayPoints[currentPathIndex].position;
+
+
+            if (distance <= pathDistence)
+            {
+                currentPathIndex = UnityEngine.Random.Range(0, WayPoints.Count);
+            }
+            anim.SetBool("Walk Forward", true);
+            Walking = true;
+        }  
+    }
     
     IEnumerator Attack()
     {
-        if (!waitFor && !hiting)
+        if (!waitFor && !hiting && !playerIsDead)
         {
             waitFor = true;
             attacking = true;
@@ -90,8 +119,17 @@ public class CombateEnemy : MonoBehaviour
             //yield return new WaitForSeconds(1f);
             waitFor = false;
         }
-        
-        
+
+        if (playerIsDead)
+        {
+            anim.SetBool("Walk Forward", false);
+            anim.SetBool("Pounce Attack", false);
+            waitFor = false;
+            attacking = false;
+            agent.isStopped = true;
+        }
+
+
     }
 
     void GetPlayer()
@@ -101,7 +139,8 @@ public class CombateEnemy : MonoBehaviour
             if (c.gameObject.CompareTag("Player"))
             {
                //vai causar dano no player
-               Debug.Log("varios pulos");
+               c.gameObject.GetComponent<Player>().GetHit(attackDamage);
+               playerIsDead = c.gameObject.GetComponent<Player>().isDead;
             }
         }
     }

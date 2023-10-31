@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public float totalHealth;
     private bool waitFor;
     private bool isHitting;
+    public bool isDead;
 
     private Animator anim;
     public List<Transform> enemyList = new List<Transform>();
@@ -35,8 +36,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-        getMouseInput();
+        if (!isDead)
+        {
+            Move();
+            getMouseInput();
+        }
+       
     }
 
     private void Move()
@@ -162,6 +167,7 @@ public class Player : MonoBehaviour
         else
         {
             //esta morto
+            isDead = true;
             anim.SetTrigger("death");
         }
     }

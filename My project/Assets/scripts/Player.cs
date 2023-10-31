@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public float smoothRotTime;
     private float turnSmoothVelocity;
     public float totalHealth;
+    private bool waitFor;
+    private bool isHitting;
 
     private Animator anim;
     public List<Transform> enemyList = new List<Transform>();
@@ -105,25 +107,32 @@ public class Player : MonoBehaviour
 
     IEnumerator Attack()
     {
-        anim.SetBool("attack",true);
-        anim.SetInteger("transition", 2);
-        yield return new WaitForSeconds(1f);
-        GetEnemiesList();
-
-        foreach (Transform e in enemyList)
+        if (!waitFor && !isHitting)
         {
-            Debug.Log(e.name);
-            CombateEnemy enemy = e.GetComponent<CombateEnemy>();
+            waitFor = true;
 
-            if (enemy != null)
+            anim.SetBool("attack", true);
+            anim.SetInteger("transition", 2);
+
+            yield return new WaitForSeconds(0.4f);
+            GetEnemiesList();
+
+            foreach (Transform e in enemyList)
             {
-                enemy.GetHit(damage);
-            }
-        }
+                Debug.Log(e.name);
+                CombateEnemy enemy = e.GetComponent<CombateEnemy>();
 
-        yield return new WaitForSeconds(1f);
-        anim.SetInteger("Transition", 0);
-        anim.SetBool("attack", false);
+                if (enemy != null)
+                {
+                    enemy.GetHit(damage);
+                }
+            }
+
+            yield return new WaitForSeconds(1f);
+            anim.SetInteger("Transition", 0);
+            anim.SetBool("attack", false);
+            waitFor = false;
+        }
     }
 
     void GetEnemiesList()
@@ -146,22 +155,24 @@ public class Player : MonoBehaviour
         {
             //esta vivo
             StopCoroutine("Attack");
-            anim.SetTrigger("Take Damege");
+            anim.SetInteger("transition", 3);
+            isHitting = true;
             StartCoroutine("RecoveryFromHit");
         }
         else
         {
             //esta morto
-            anim.SetTrigger("Die");
+            anim.SetTrigger("death");
         }
     }
     
     IEnumerator RecoveryFromHit()
     {
         yield return new WaitForSeconds(1f);
-        anim.SetBool("Walk Forward", false);
-        anim.SetBool("Pounce Attack", true);
-        
+        anim.SetInteger("transition", 0);
+        isHitting = false;
+        anim.SetBool("attacking", false);
+
     }
 
     private void OnDrawGizmosSelected()

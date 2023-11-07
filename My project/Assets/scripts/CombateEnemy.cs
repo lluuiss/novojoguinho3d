@@ -35,6 +35,8 @@ public class CombateEnemy : MonoBehaviour
 
     public int currentPathIndex;
     public float pathDistence;
+
+    public AudioSource Somaranha;
     
     // Start is called before the first frame update
     void Start()
@@ -111,6 +113,7 @@ public class CombateEnemy : MonoBehaviour
         {
             waitFor = true;
             attacking = true;
+            Somaranha.Play();
             Walking = false;
             anim.SetBool("Walk Forward", false);
             anim.SetBool("Pounce Attack", true);

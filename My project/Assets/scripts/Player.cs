@@ -25,6 +25,16 @@ public class Player : MonoBehaviour
     public List<Transform> enemyList = new List<Transform>();
     private bool isWalk;
 
+    public AudioSource Moeda;
+    
+    public AudioSource SomAtaque;
+
+    public AudioSource hitSom;
+
+    public AudioSource SomMorte;
+    
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,8 +71,7 @@ public class Player : MonoBehaviour
                 if (!anim.GetBool("attack"))
                 {
                     float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-                    float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle, ref turnSmoothVelocity,
-                        smoothRotTime);
+                    float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, angle, ref turnSmoothVelocity, smoothRotTime);
                     transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
                     moveDirection = Quaternion.Euler(0f, angle, 0f) * Vector3.forward * speed;
                     anim.SetInteger("transition", 1);
@@ -77,7 +86,7 @@ public class Player : MonoBehaviour
             }
             else if(isWalk)
             {
-                anim.SetInteger("transition", 1);
+                anim.SetInteger("transition", 0);
                 anim.SetBool("walk", false);
                 moveDirection = Vector3.zero;
                 //anim.SetInteger("transition", 0);
@@ -106,7 +115,6 @@ public class Player : MonoBehaviour
                 {
                     StartCoroutine("Attack");
                 }
-                StartCoroutine(Attack());
             }
         }
     }
@@ -116,6 +124,7 @@ public class Player : MonoBehaviour
         if (!waitFor && !isHitting)
         {
             waitFor = true;
+            SomAtaque.Play();
 
             anim.SetBool("attack", true);
             anim.SetInteger("transition", 2);
@@ -164,12 +173,14 @@ public class Player : MonoBehaviour
             StopCoroutine("Attack");
             anim.SetInteger("transition", 3);
             isHitting = true;
+            hitSom.Play();
             StartCoroutine("RecoveryFromHit");
         }
         else
         {
             //esta morto
             isDead = true;
+            SomMorte.Play();
             anim.SetTrigger("death");
         }
     }
@@ -187,5 +198,13 @@ public class Player : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position+transform.forward, colliderRadius);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "moeda")
+        {
+            Moeda.Play();
+        }
     }
 }

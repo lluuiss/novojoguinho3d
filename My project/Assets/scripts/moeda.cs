@@ -5,12 +5,13 @@ using UnityEngine;
 public class moeda : MonoBehaviour
 {
     public float Moeda;
+
     private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.tag == "Player")
         {
-            if(collision.gameObject.tag == "Player")
-            {
-                GameController.instance.UpdateQuantidade(Moeda);
-                Destroy(gameObject);
-            }
+            GameController.instance.UpdateQuantidade(Moeda);
+            Destroy(gameObject);
         }
     }
+}

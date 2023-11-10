@@ -129,7 +129,7 @@ public class Player : MonoBehaviour
             anim.SetBool("attack", true);
             anim.SetInteger("transition", 2);
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.7f);
             GetEnemiesList();
 
             foreach (Transform e in enemyList)
@@ -143,8 +143,8 @@ public class Player : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(1f);
-            anim.SetInteger("Transition", 0);
+            yield return new WaitForSeconds(0.7f);
+            anim.SetInteger("transition", 0);
             anim.SetBool("attack", false);
             waitFor = false;
         }
